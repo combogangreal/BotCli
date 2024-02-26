@@ -1,0 +1,23 @@
+import asyncio
+from src.bot import bot
+from src.base import config
+from loguru import logger
+
+tnd = bot.%NAME()
+
+async def start():
+    logger.info("Starting %NAME")
+    try:
+        await tnd.start(
+            token=config.TOKEN,
+            reconnect=True,
+        )
+    except asyncio.CancelledError:
+        logger.warning("Asyncio CancelledError: stopping process...")
+        await tnd.close()
+
+
+try:
+    asyncio.run(start())
+except KeyboardInterrupt:
+    pass

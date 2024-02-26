@@ -1,0 +1,8 @@
+import subprocess
+
+if __name__ == '__main__':
+    # Builds the image
+    subprocess.run(["docker", "build", "-t", "%IMAGE_NAME", "."])
+    # Pushes the image to the docker hub
+    subprocess.run(["docker", "image", "tag", "%IMAGE_NAME", "$DOCKER_HUB_NAME/%IMAGE_NAME"])
+    subprocess.run(["docker", "push", "%DOCKER_HUB_NAME/%IMAGE_NAME"])

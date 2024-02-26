@@ -1,3 +1,18 @@
+Metadata-Version: 2.1
+Name: botcli
+Version: 1.0.0
+Summary: A cli for generating a discord.py bot structure
+Home-page: https://github.com/combogangreal/BotCli
+Author: Combo Gang
+Author-email: contact@combogang.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS.md
+
 ![HeaderImage](./images/header.png)
 # BotCli
 Bot Cli is a [discord.py](https://github.com/Rapptz/discord.py) project generator for a structure that I prefer. 

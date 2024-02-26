@@ -1,0 +1,37 @@
+import os
+from discord.ext.commands import Bot
+from discord import Intents
+from loguru import logger
+from cogwatch import watch
+
+class %NAME(Bot):
+    """%NAME class"""
+
+    def __init__(self):
+        super().__init__(command_prefix="!", intents=Intents.default())
+        self.logger = logger
+
+    async def load_cogs(self):
+        """Load all cogs"""
+        for filename in os.listdir("./src/bot/cogs"):
+            if filename.endswith(".py"):
+                await self.load_extension(f"src.bot.cogs.{filename[:-3]}")
+                self.logger.info(f"Loaded cog {filename[:-3]}")
+
+    async def setup_db(self):
+        """Add your database setup logic"""
+        pass
+
+    async def setup_hook(self) -> None:
+        """Setup hook"""
+        await self.load_cogs()
+        await self.tree.sync()
+        self.logger.info("Setup hook completed")
+
+    @watch(path="src/bot/cogs")
+    async def on_ready(self):
+        """Called when the bot is ready"""
+        await self.setup_db()
+        self.logger.info("Setup db completed")
+
+        self.logger.info("Bot is ready")

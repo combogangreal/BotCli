@@ -1,0 +1,14 @@
+
+FROM python:3
+
+ENV NAME %NAME
+WORKDIR /usr/src/%NAME
+
+COPY launcher.py requirements.txt ./
+RUN mkdir -p src/base src/bot/cogs
+COPY ./src/base/config.py ./src/base/router.json ./src/base/database.py ./src/bot/bot.py ./src/bot/__init__.py ./src/bot/cogs/example.py ./src/base/keys/token.key ./src/base/keys/cert.key ./src/base/keys/uri.key /usr/src/$NAME/
+
+RUN pip install --no-cache-dir -r requirements.txt && \
+    black .
+
+CMD ["python3", "launcher.py"]

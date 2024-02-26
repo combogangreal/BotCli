@@ -1,0 +1,14 @@
+AUTHORS.md
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+src/botcli/__init__.py
+src/botcli/cli.py
+src/botcli/generate.py
+src/botcli.egg-info/PKG-INFO
+src/botcli.egg-info/SOURCES.txt
+src/botcli.egg-info/dependency_links.txt
+src/botcli.egg-info/entry_points.txt
+src/botcli.egg-info/top_level.txt

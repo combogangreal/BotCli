@@ -1,0 +1,6 @@
+from src.base.config import DATABASE
+
+def test_database_insert():
+    """Tests a database insert"""
+    DATABASE.insert_document_if_not_exists("%COLLNAME", {"_id": "test3"})
+    assert DATABASE.find_document_by_id("$COLLNAME", "test3") is not None

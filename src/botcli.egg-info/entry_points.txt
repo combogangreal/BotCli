@@ -1,0 +1,2 @@
+[console_scripts]
+makebot = botcli.cli:generate

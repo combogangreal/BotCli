@@ -1,0 +1,38 @@
+from discord.ext.commands import Cog
+from src.bot.bot import %NAME
+from discord import app_commands, Interaction, ButtonStyle, Button
+from discord.ui import View, button
+
+
+class PingView(View):
+    """A button for the ping command."""
+    def __init__(self, bot: %NAME):
+        super().__init__(timeout=None)
+        self.bot = bot
+
+    @button(
+        label="Ping again",
+        custom_id="ping_again",
+        style=ButtonStyle.blurple,
+        emoji="🔁",
+    )
+    async def ping_again(self, ctx: Interaction, button: Button):
+        ping = round(self.bot.latency * 1000)
+        await ctx.response.send_message(f"Pong Again! {ping}ms")
+
+
+class Ping(Cog):
+    """Ping cog"""
+    def __init__(self, bot: %NAME):
+        self.bot = bot
+
+    @app_commands.command(name="ping", description="Pings the bot!")
+    async def ping(self, ctx: Interaction):
+        """Pings the bot."""
+        self.bot.logger.debug(f"{ctx.user.id} | {ctx.user} | {type(ctx.user)}")
+        ping = round(self.bot.latency * 1000)
+        await ctx.response.send_message(f"Pong! {ping}ms", view=PingView(self.bot))
+
+
+async def setup(bot: %NAME):
+    await bot.add_cog(Ping(bot))

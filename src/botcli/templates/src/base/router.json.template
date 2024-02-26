@@ -1,0 +1,5 @@
+{
+    "token": "./src/base/keys/token.key",
+    "uri": "./src/base/keys/uri.key",
+    "cert": "./src/base/keys/cert.key"
+}

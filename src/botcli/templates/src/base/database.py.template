@@ -1,0 +1,211 @@
+from pymongo import MongoClient
+from pymongo.collection import Collection
+from pymongo.results import InsertOneResult, UpdateResult, DeleteResult
+from typing import Optional, List, Union, Dict, Any
+
+
+class MongoDBUtility:
+    def __init__(self, connection: str | MongoClient, database_name: str) -> None:
+        """
+        Initialize the MongoDBUtility.
+
+        Arguments
+        --------------
+        connection (str | MongoClient): MongoDB connection string or MongoClient instance.
+        database_name (str): Name of the MongoDB database.
+        """
+        self.client = (
+            connection
+            if isinstance(connection, MongoClient)
+            else MongoClient(connection)
+        )
+        self.database = self.client[database_name]
+
+    def insert_document(self, collection_name: str, document: Dict[str, Any]) -> Any:
+        """
+        Insert a document into the specified collection.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        document (Dict[str, Any]): Document to be inserted.
+
+        Returns
+        ----------
+        Any: The ID of the inserted document.
+        """
+        collection: Collection = self.database[collection_name]
+        result: InsertOneResult = collection.insert_one(document)
+        return result.inserted_id
+
+    def find_documents(
+        self,
+        collection_name: str,
+        query: Optional[Dict[str, Any]] = None,
+        projection: Optional[Dict[str, Union[int, bool]]] = None,
+    ) -> List[Dict[str, Any]]:
+        """
+        Find documents in the specified collection based on the query.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        query (Optional[Dict[str, Any]]): Query to filter documents.
+        projection (Optional[Dict[str, Union[int, bool]]]): Fields to include/exclude in the result.
+
+        Returns
+        ----------
+        List[Dict[str, Any]]: List of documents matching the query.
+        """
+        collection: Collection = self.database[collection_name]
+        cursor = collection.find(query, projection)
+        return list(cursor)
+
+    def find_one_document(
+        self,
+        collection_name: str,
+        query: Optional[Dict[str, Any]] = None,
+        projection: Optional[Dict[str, Union[int, bool]]] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Find one document in the specified collection based on the query.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        query (Optional[Dict[str, Any]]): Query to filter documents.
+        projection (Optional[Dict[str, Union[int, bool]]]): Fields to include/exclude in the result.
+
+        Returns
+        ----------
+        Optional[Dict[str, Any]]: The first document matching the query, or None if not found.
+        """
+        collection: Collection = self.database[collection_name]
+        return collection.find_one(query, projection)
+
+    def update_document(
+        self, collection_name: str, query: Dict[str, Any], update: Dict[str, Any]
+    ) -> int:
+        """
+        Update documents in the specified collection based on the query.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        query (Dict[str, Any]): Query to filter documents to be updated.
+        update (Dict[str, Any]): Update operation to be applied.
+
+        Returns
+        ----------
+        int: The number of documents modified.
+        """
+        collection: Collection = self.database[collection_name]
+        result: UpdateResult = collection.update_one(query, {"$set": update})
+        return result.modified_count
+
+    def delete_document(self, collection_name: str, query: Dict[str, Any]) -> int:
+        """
+        Delete documents in the specified collection based on the query.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        query (Dict[str, Any]): Query to filter documents to be deleted.
+
+        Returns
+        ----------
+        int: The number of documents deleted.
+        """
+        collection: Collection = self.database[collection_name]
+        result: DeleteResult = collection.delete_one(query)
+        return result.deleted_count
+
+    def find_document_and_update(
+        self, collection_name: str, query: Dict[str, Any], update: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Find one document in the specified collection based on the query and update it.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        query (Dict[str, Any]): Query to filter documents to be updated.
+        update (Dict[str, Any]): Update operation to be applied.
+
+        Returns
+        ----------
+        Optional[Dict[str, Any]]: The updated document.
+        """
+        collection: Collection = self.database[collection_name]
+        return collection.find_one_and_update(query, {"$set": update})
+
+    def find_document_by_id(
+        self,
+        collection_name: str,
+        _id: str,
+        projection: Optional[Dict[str, Union[int, bool]]] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Find one document in the specified collection based on the ID.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        _id (str): ID of the document to be found.
+        projection (Optional[Dict[str, Union[int, bool]]]): Fields to include/exclude in the result.
+
+        Returns
+        ----------
+        Optional[Dict[str, Any]]: The document matching the ID, or None if not found.
+        """
+        collection: Collection = self.database[collection_name]
+        return collection.find_one({"_id": _id}, projection)
+
+    def insert_document_if_not_exists(
+        self, collection_name: str, document: Dict[str, Any]
+    ) -> Any:
+        """
+        Insert a document into the specified collection if it does not exist.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        document (Dict[str, Any]): Document to be inserted.
+
+        Returns
+        ----------
+        Any: The ID of the inserted document.
+        """
+        collection: Collection = self.database[collection_name]
+        result: InsertOneResult = collection.update_one(
+            document, {"$setOnInsert": document}, upsert=True
+        )
+        return result.upserted_id
+
+    def update_document_if_exists(
+        self, collection_name: str, query: Dict[str, Any], update: Dict[str, Any]
+    ) -> int:
+        """
+        Update a document in the specified collection if it exists.
+
+        Arguments
+        --------------
+        collection_name (str): Name of the MongoDB collection.
+        query (Dict[str, Any]): Query to filter documents to be updated.
+        update (Dict[str, Any]): Update operation to be applied.
+
+        Returns
+        ----------
+        int: The number of documents modified.
+        """
+        collection: Collection = self.database[collection_name]
+        result: UpdateResult = collection.update_one(
+            query, {"$set": update}, upsert=False
+        )
+        return result.modified_count
+
+    def close_connection(self) -> None:
+        """
+        Close the MongoDB connection.
+        """
+        self.client.close()
