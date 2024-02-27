@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-import click
-import sys
 import platform
-from colorama import init, Fore, Style
+import sys
+
+import click
+from colorama import Fore, Style, init
 from InquirerPy import prompt
 
-from . import __version__, Generator, __author__
+from . import Generator, __author__, __version__
 
 init(autoreset=True)
 
@@ -16,18 +17,18 @@ def generate():
     """Generates a discord.py bot project"""
     click.echo(
         f"""{Fore.MAGENTA}{Style.BRIGHT}
-BBBBBBBBBBBBBBBBB                             tttt                       CCCCCCCCCCCCClllllll   iiii  
-B::::::::::::::::B                         ttt:::t                    CCC::::::::::::Cl:::::l  i::::i 
-B::::::BBBBBB:::::B                        t:::::t                  CC:::::::::::::::Cl:::::l   iiii  
-BB:::::B     B:::::B                       t:::::t                 C:::::CCCCCCCC::::Cl:::::l         
-  B::::B     B:::::B   ooooooooooo   ttttttt:::::ttttttt          C:::::C       CCCCCC l::::l iiiiiii 
-  B::::B     B:::::B oo:::::::::::oo t:::::::::::::::::t         C:::::C               l::::l i:::::i 
-  B::::BBBBBB:::::B o:::::::::::::::ot:::::::::::::::::t         C:::::C               l::::l  i::::i 
-  B:::::::::::::BB  o:::::ooooo:::::otttttt:::::::tttttt         C:::::C               l::::l  i::::i 
-  B::::BBBBBB:::::B o::::o     o::::o      t:::::t               C:::::C               l::::l  i::::i 
-  B::::B     B:::::Bo::::o     o::::o      t:::::t               C:::::C               l::::l  i::::i 
-  B::::B     B:::::Bo::::o     o::::o      t:::::t               C:::::C               l::::l  i::::i 
-  B::::B     B:::::Bo::::o     o::::o      t:::::t    tttttt      C:::::C       CCCCCC l::::l  i::::i 
+BBBBBBBBBBBBBBBBB                             tttt                       CCCCCCCCCCCCClllllll   iiii
+B::::::::::::::::B                         ttt:::t                    CCC::::::::::::Cl:::::l  i::::i
+B::::::BBBBBB:::::B                        t:::::t                  CC:::::::::::::::Cl:::::l   iiii
+BB:::::B     B:::::B                       t:::::t                 C:::::CCCCCCCC::::Cl:::::l
+  B::::B     B:::::B   ooooooooooo   ttttttt:::::ttttttt          C:::::C       CCCCCC l::::l iiiiiii
+  B::::B     B:::::B oo:::::::::::oo t:::::::::::::::::t         C:::::C               l::::l i:::::i
+  B::::BBBBBB:::::B o:::::::::::::::ot:::::::::::::::::t         C:::::C               l::::l  i::::i
+  B:::::::::::::BB  o:::::ooooo:::::otttttt:::::::tttttt         C:::::C               l::::l  i::::i
+  B::::BBBBBB:::::B o::::o     o::::o      t:::::t               C:::::C               l::::l  i::::i
+  B::::B     B:::::Bo::::o     o::::o      t:::::t               C:::::C               l::::l  i::::i
+  B::::B     B:::::Bo::::o     o::::o      t:::::t               C:::::C               l::::l  i::::i
+  B::::B     B:::::Bo::::o     o::::o      t:::::t    tttttt      C:::::C       CCCCCC l::::l  i::::i
 BB:::::BBBBBB::::::Bo:::::ooooo:::::o      t::::::tttt:::::t       C:::::CCCCCCCC::::Cl::::::li::::::i
 B:::::::::::::::::B o:::::::::::::::o      tt::::::::::::::t        CC:::::::::::::::Cl::::::li::::::i
 B::::::::::::::::B   oo:::::::::::oo         tt:::::::::::tt          CCC::::::::::::Cl::::::li::::::i
@@ -165,6 +166,10 @@ BBBBBBBBBBBBBBBBB      ooooooooooo             ttttttttttt               CCCCCCC
                     "COLLNAME": mongo_coll,
                     "DATABASENAME": mongo_db,
                 },
+            )
+
+            click.echo(
+                f"{Fore.LIGHTMAGENTA_EX}Project generated successfully{Style.RESET_ALL}"
             )
 
         case 2:

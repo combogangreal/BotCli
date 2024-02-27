@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-import shutil
-import pkg_resources
 import os
 from string import Template
 from typing import Dict, Final, List
+
+import requests
 
 
 class ProjectTemplate(Template):
@@ -110,12 +110,9 @@ class Generator:
 
         """
         for template_file in TEMPLATE_FILES:
-            template_path = pkg_resources.resource_filename(
-                __name__, f"templates/{template_file}.template"
-            )
-
-            with open(template_path, "r", encoding="utf-8") as f:
-                template_str = f.read()
+            template_url = "https://raw.githubusercontent.com/combogangreal/BotCli/main/src/botcli/templates"
+            response = requests.get(f"{template_url}/{template_file}.template")
+            template_str = response.text
 
             template = ProjectTemplate(template_str)
             processed_content = template.substitute(project_data)

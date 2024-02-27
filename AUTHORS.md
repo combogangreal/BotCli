@@ -1,6 +1,6 @@
 # Authors
-All authors / contributors are listed in here 
+All authors / contributors are listed in here
 
 ## ComboGang
 - [GitHub](https://github.com/combogangreal)
-- Contributor
+- Maintainer

@@ -19,11 +19,14 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [I Want To Contribute](#i-want-to-contribute)
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
+  - [Issue Template](#issue-template)
+  - [Pull Request Template](#pull-request-template)
   - [Your First Code Contribution](#your-first-code-contribution)
   - [Improving The Documentation](#improving-the-documentation)
 - [Styleguides](#styleguides)
   - [Commit Messages](#commit-messages)
-- [Join The Project Team](#join-the-project-team)
+  - [Python Styleguide](#python-styleguide)
+  - [Documentation Styleguide](#documentation-styleguide)
 
 
 ## Code of Conduct
@@ -131,29 +134,45 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/combog
 - You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux. <!-- this should only be included if the project has a GUI -->
 - **Explain why this enhancement would be useful** to most BotCli users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
-<!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
+### Issue Template
+- Please follow the issue template in `.github/ISSUE_TEMPLATE.md`
+
+### Pull Request Template
+- Please follow the pull request template in `.github/PULL_REQUEST_TEMPLATE.md`
 
 ### Your First Code Contribution
-<!-- TODO
-include Setup of env, IDE and typical getting started instructions?
-
--->
+- Setting up the workflow is very simple, and can be done by the following steps:
+1. Clone the repository with
+```bash
+git clone https://github.com/combogangreal/BotCli.git
+```
+2. Install the requirements with
+```bash
+pip install -r requirements.txt
+```
+3. Make your changes within the code.
+4. Install the package locally with (This allows code to be edited and the run again without having to reinstall the package every time)
+```bash
+pip install --editable .
+```
+5. Push your changes to the repository.
 
 ### Improving The Documentation
-<!-- TODO
-Updating, improving and correcting the documentation
-
--->
+BotCli could always use better documentation, whether as part of the official BotCli docs, in docstrings, or even on the web in blog posts, articles, and such.
 
 ## Styleguides
 ### Commit Messages
-<!-- TODO
-
--->
-
-## Join The Project Team
-<!-- TODO -->
-
-<!-- omit in toc -->
-## Attribution
-This guide is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!
+  - Use the present tense ("Add feature" not "Added feature")
+  - Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
+  - Limit the first line to 72 characters or less
+  - Reference issues and pull requests liberally after the first line
+  - When only changing documentation, include `[ci skip]` in the commit description
+### Python Styleguide
+  - Follow PEP8
+  - Use `black .` for formatting
+  - Use `isort .` for import sorting
+  - Use `flake8 .` for linting
+### Documentation Styleguide
+  - Use [Google Style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
+  - Use [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
+  - Use [Markdown](https://www.markdownguide.org/basic-syntax/)
