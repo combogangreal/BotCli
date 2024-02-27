@@ -1,6 +1,7 @@
 ![HeaderImage](./images/header.png)
 # BotCli
 ![Discord](https://img.shields.io/discord/1146327551334174780) ![PyPI - Version](https://img.shields.io/pypi/v/botcli)
+
 Bot Cli is a [discord.py](https://github.com/Rapptz/discord.py) project generator for a structure that I prefer.
 
 # Prerequisites
